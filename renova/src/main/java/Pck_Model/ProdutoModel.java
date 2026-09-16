@@ -1,6 +1,13 @@
 package Pck_Model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "produtos")
 public class ProdutoModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idProduto;
     private String nomeProduto;
     private String descricao;
