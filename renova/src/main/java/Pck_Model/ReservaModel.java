@@ -1,6 +1,14 @@
 package Pck_Model;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "reserva")
 public class ReservaModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReserva;
     private double totalReserva;
     private String metodoPagamento;
