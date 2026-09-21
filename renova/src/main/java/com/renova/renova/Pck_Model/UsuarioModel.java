@@ -1,6 +1,4 @@
-package Pck_Model;
-
-import lombok.Getter;
+package com.renova.renova.Pck_Model;
 
 public class UsuarioModel {
 

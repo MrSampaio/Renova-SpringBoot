@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/TestMapping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/Pck_Model/UsuarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/Pck_Model/UsuarioModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/Pck_Model/ProdutoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/ProdutoModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/Pck_Model/ReservaModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/ReservaModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/Pck_Model/UsuarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/UsuarioModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +68,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.RenovaApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "feature/spring-models",
+    "git-widget-placeholder": "feature/mapping-controllers",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/sampaio/Documents/Renova-SpringBoot/Renova-SpringBoot",
     "node.js.detected.package.eslint": "true",
