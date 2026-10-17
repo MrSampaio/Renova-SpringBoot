@@ -8,13 +8,13 @@ public class ProdutoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idProduto;
+    private int idProduto;
     private String nomeProduto;
     private String descricao;
     private double preco;
     private String status;
 
-    public long getIdProduto() {
+    public int getIdProduto() {
         return idProduto;
     }
 
