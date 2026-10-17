@@ -23,23 +23,32 @@ public class ProdutoControl {
         persistencia.cadastrarProduto(produto);
     }
 
+    // GET /produtos  (lista todos)
+    // GET /produtos?nome=Camisa (filtra por nome)
     @GetMapping("")
-    public ArrayList<ProdutoModel> listarProdutos() throws Exception {
+    public ArrayList<ProdutoModel> listarProdutos(@RequestParam(value = "nome", required = false) String nome) throws Exception {
         ProdutoPersistencia persistencia = new ProdutoPersistencia();
+
+        // se o usuário mandou um nome na URL, faz a busca filtrada
+        if (nome != null && !nome.isEmpty()) {
+            return persistencia.buscarProdutosNome(nome);
+        }
+
+        // se não mandou nada, lista todos
         return persistencia.listarProduto();
     }
 
+    // GET /produtos/1 (filtra por id)
     @GetMapping("/{id}")
     public ProdutoModel buscarProdutoID(@PathVariable int id) throws Exception{
         ProdutoPersistencia persistencia = new ProdutoPersistencia();
         return persistencia.buscarProdutosID(id);
     }
 
-    public ArrayList<ProdutoModel> buscarProdutoNome(String pesquisa) throws Exception{
-        ProdutoPersistencia persistencia = new ProdutoPersistencia();
-
-        return persistencia.buscarProdutosNome(pesquisa);
-    }
-
-
+//    @GetMapping("")
+//    public ArrayList<ProdutoModel> buscarProdutoNome(String pesquisa) throws Exception{
+//        ProdutoPersistencia persistencia = new ProdutoPersistencia();
+//
+//        return persistencia.buscarProdutosNome(pesquisa);
+//    }
 }

@@ -7,6 +7,8 @@
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ProdutoControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ProdutoControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ProdutoPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ProdutoPersistencia.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
