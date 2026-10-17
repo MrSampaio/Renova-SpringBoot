@@ -12,7 +12,6 @@ public class UsuarioControl {
     @PostMapping
     public void cadastrarUsuario(@RequestBody UsuarioModel usuario) throws Exception {
         UsuarioPersistencia persistencia = new UsuarioPersistencia();
-
         persistencia.CadastroUsuario(usuario);
     }
 

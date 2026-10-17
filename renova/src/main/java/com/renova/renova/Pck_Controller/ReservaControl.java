@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/reservas")
+@CrossOrigin(origins = "*")
 public class ReservaControl {
 
     // POST /reservas (Removemos o verbo da URL)
