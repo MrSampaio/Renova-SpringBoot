@@ -1,16 +1,16 @@
 package com.renova.renova.Pck_Controller;
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_Persistencia.ProdutoPersistencia;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.websocket.server.PathParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @RestController
+@RequestMapping("/produtos")
 public class ProdutoControl {
 
-    @PostMapping("/cadastrar-produto")
+    @PostMapping("")
     public void CadastrarProduto(@RequestBody ProdutoModel v_produto){
 
         ProdutoModel produto = new ProdutoModel();
@@ -23,14 +23,16 @@ public class ProdutoControl {
         persistencia.cadastrarProduto(produto);
     }
 
+    @GetMapping("")
     public ArrayList<ProdutoModel> listarProdutos() throws Exception {
         ProdutoPersistencia persistencia = new ProdutoPersistencia();
         return persistencia.listarProduto();
     }
 
-    public ProdutoModel buscarProdutoID(int pesquisa) throws Exception{
+    @GetMapping("/{id}")
+    public ProdutoModel buscarProdutoID(@PathVariable int id) throws Exception{
         ProdutoPersistencia persistencia = new ProdutoPersistencia();
-        return persistencia.buscarProdutosID(pesquisa);
+        return persistencia.buscarProdutosID(id);
     }
 
     public ArrayList<ProdutoModel> buscarProdutoNome(String pesquisa) throws Exception{
