@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ReservaPersistencia {
-    public boolean finalizarPedido(int idUsuario, double total, String metodoPagamento, ArrayList<ProdutoModel> carrinho){
+    public boolean finalizarPedido(ReservaModel reserva, ArrayList<ProdutoModel> carrinho){
         Connection conn = null;
         CallableStatement stmtReserva = null;
         CallableStatement stmtItens = null;
@@ -26,9 +26,9 @@ public class ReservaPersistencia {
             String sqlReserva = "{CALL PROC_CRIAR_RESERVA(?, ?, ?, ?)}";
             stmtReserva = conn.prepareCall(sqlReserva);
 
-            stmtReserva.setInt(1, idUsuario);
-            stmtReserva.setDouble(2, total);
-            stmtReserva.setString(3, metodoPagamento);
+            stmtReserva.setInt(1, reserva.getIdReserva());
+            stmtReserva.setDouble(2, reserva.getTotalReserva());
+            stmtReserva.setString(3, reserva.getMetodoPagamento());
 
             // diz que o 4º parâmetro é de SAÍDA (OUT) e é do tipo Inteiro
             stmtReserva.registerOutParameter(4, java.sql.Types.INTEGER);
