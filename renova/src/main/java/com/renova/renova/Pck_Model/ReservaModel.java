@@ -4,12 +4,11 @@ package com.renova.renova.Pck_Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "reserva")
+@Table(name = "reservas")
 public class ReservaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int idReserva;
     private int idUsuario;
     private double totalReserva;
