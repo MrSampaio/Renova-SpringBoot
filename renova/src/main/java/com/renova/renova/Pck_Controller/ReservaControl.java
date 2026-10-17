@@ -4,51 +4,62 @@ import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_Persistencia.ReservaPersistencia;
 import com.renova.renova.Pck_Model.ReservaModel;
 import com.renova.renova.Pck_Model.Pck_DTO.ReservaRequestDTO;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 
 @RestController
+@RequestMapping("/reservas")
 public class ReservaControl {
 
-    @PostMapping("/realizar-reserva")
+    // POST /reservas (Removemos o verbo da URL)
+    @PostMapping
     public boolean realizarReserva(@RequestBody ReservaRequestDTO request){
         ReservaPersistencia persistencia = new ReservaPersistencia();
         return persistencia.finalizarPedido(request);
     }
 
-    public ArrayList<ReservaModel> listarReservas(int idUsuario){
+    // GET /reservas
+    // GET /reservas?nomeCliente=Sampaio
+    @GetMapping
+    public ArrayList<ReservaModel> listarReservas(@RequestParam(required = false) String nomeCliente) {
+        ReservaPersistencia persistencia = new ReservaPersistencia();
+
+        if (nomeCliente != null && !nomeCliente.isEmpty()) {
+            return persistencia.buscarReservaPorNomeCliente(nomeCliente);
+        }
+        return persistencia.listarTodasReservas();
+    }
+
+    // GET /reservas/usuario/1
+    @GetMapping("/usuario/{idUsuario}")
+    public ArrayList<ReservaModel> listarReservasDoUsuario(@PathVariable int idUsuario){
         ReservaPersistencia persistencia = new ReservaPersistencia();
         return persistencia.listarReservasPorUsuario(idUsuario);
     }
 
-    public ArrayList<ProdutoModel> listarProdutosPorReserva(int idReserva){
+    // GET /reservas/5/produtos
+    @GetMapping("/{idReserva}/produtos")
+    public ArrayList<ProdutoModel> listarProdutosPorReserva(@PathVariable int idReserva){
         ReservaPersistencia persistencia = new ReservaPersistencia();
         return persistencia.listarProdutosPorReserva(idReserva);
     }
 
-    public ReservaModel buscarReservaPorId(int idReserva, int idUsuario) {
+    // GET /reservas/5
+    // GET /reservas/5?idUsuario=1
+    @GetMapping("/{idReserva}")
+    public ReservaModel buscarReservaPorId(@PathVariable int idReserva, @RequestParam(required = false) Integer idUsuario) {
         ReservaPersistencia persistencia = new ReservaPersistencia();
-        return persistencia.buscarReservaPorId(idReserva, idUsuario);
-    }
 
-    public ArrayList<ReservaModel> listarTodasReservas() {
-        ReservaPersistencia persistencia = new ReservaPersistencia();
-        return persistencia.listarTodasReservas();
-    }
-
-    public ReservaModel buscarReservaGeralPorId(int idReserva) {
-        ReservaPersistencia persistencia = new ReservaPersistencia();
+        if (idUsuario != null) {
+            return persistencia.buscarReservaPorId(idReserva, idUsuario);
+        }
         return persistencia.buscarReservaGeralPorId(idReserva);
     }
 
-    public ArrayList<ReservaModel> buscarReservaPorNomeCliente(String nomeCliente) {
-        ReservaPersistencia persistencia = new ReservaPersistencia();
-        return persistencia.buscarReservaPorNomeCliente(nomeCliente);
-    }
-
-    public void atualizarStatusReserva(int idReserva, String novoStatus) {
+    // PATCH /reservas/5/status?novoStatus=Concluída
+    @PatchMapping("/{idReserva}/status")
+    public void atualizarStatusReserva(@PathVariable int idReserva, @RequestParam("novoStatus") String novoStatus) {
         ReservaPersistencia persistencia = new ReservaPersistencia();
         persistencia.atualizarStatusReserva(idReserva, novoStatus);
     }

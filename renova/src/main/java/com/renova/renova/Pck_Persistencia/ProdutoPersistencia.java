@@ -188,9 +188,6 @@ public class ProdutoPersistencia {
 
             if(!lista.isEmpty()){
                 System.out.println("Produtos buscados por nome listados com sucesso.");
-            } else{
-                System.out.println("Erro ao listar produtos por nome.");
-                throw new RuntimeException("Nenhum produto encontrado.");
             }
 
             return lista;
