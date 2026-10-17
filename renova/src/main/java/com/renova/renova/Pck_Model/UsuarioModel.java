@@ -1,10 +1,14 @@
 package com.renova.renova.Pck_Model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "usuarios")
 public class UsuarioModel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
-
-//    @Getter
     private String nome;
     private String email;
     private String senha;
@@ -78,4 +82,8 @@ public class UsuarioModel {
 
     }
 
+    public void setIdUsuario(int idUsuario) {
+        if(idUsuario <= 0) throw new IllegalArgumentException("Erro ao atribuir o ID do usuário.");
+        this.idUsuario = idUsuario;
+    }
 }

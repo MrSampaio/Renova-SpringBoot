@@ -4,12 +4,13 @@ package com.renova.renova.Pck_Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "reserva")
+@Table(name = "reservas")
 public class ReservaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idReserva;
+    private int idUsuario;
     private double totalReserva;
     private String metodoPagamento;
     private String dataReserva;
@@ -19,6 +20,15 @@ public class ReservaModel {
 
     public int getIdReserva() {
         return idReserva;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        if(idUsuario <= 0) throw new IllegalArgumentException("Erro ao atribuir o ID do usuário.");
+        this.idUsuario = idUsuario;
     }
 
     public double getTotalReserva() {
