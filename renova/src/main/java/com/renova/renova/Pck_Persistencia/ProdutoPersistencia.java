@@ -2,6 +2,7 @@ package com.renova.renova.Pck_Persistencia;
 
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_DAO.ConexaoMySql;
+
 import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class ProdutoPersistencia {
             int linhasAfetadas = stmt.executeUpdate();
 
             if(linhasAfetadas > 0){
-                System.out.println("O produto " + "'" + produto.getNomeProduto() + "' foi adicionado com sucesso.");
+                System.out.println("O produto '" + produto.getNomeProduto() + "' foi adicionado com sucesso.");
             } else{
                 System.out.println("Erro ao cadastrar produto.");
             }
@@ -38,7 +39,7 @@ public class ProdutoPersistencia {
         } catch (SQLException e) {
             throw new RuntimeException("Erro no banco de dados ao cadastrar produto: " + e.getMessage());
 
-        }finally {
+        } finally {
             try {
                 if (stmt != null){
                     stmt.close();
@@ -50,7 +51,6 @@ public class ProdutoPersistencia {
                 System.out.println("Falha ao fechar a conexão com o banco - " + e.getMessage());
             }
         }
-
     }
 
     public ArrayList<ProdutoModel> listarProduto() throws SQLException {
@@ -64,7 +64,7 @@ public class ProdutoPersistencia {
 
             ArrayList<ProdutoModel> lista = new ArrayList<>();
 
-            resultSet= stmt.executeQuery();
+            resultSet = stmt.executeQuery();
 
             while(resultSet.next()){
 
@@ -82,7 +82,7 @@ public class ProdutoPersistencia {
             if(!lista.isEmpty()){
                 System.out.println("Produtos listados com sucesso.");
             } else{
-                System.out.println("Erro ao listar produtos.");
+                System.out.println("Nenhum produto listado.");
             }
 
             return lista;
@@ -90,7 +90,7 @@ public class ProdutoPersistencia {
         } catch (SQLException e) {
             throw new RuntimeException("Erro no banco de dados ao listar produtos: " + e.getMessage());
 
-        }finally {
+        } finally {
             try {
                 if (stmt != null){
                     stmt.close();
@@ -112,10 +112,6 @@ public class ProdutoPersistencia {
 
         String sql = "{CALL PROC_BUSCAR_PRODUTO_POR_ID(?)}";
 
-        Connection conn = null;
-        CallableStatement stmt = null;
-        ResultSet resultSet = null;
-
         try {
             ConexaoMySql conexaoBD = new ConexaoMySql();
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
@@ -123,7 +119,6 @@ public class ProdutoPersistencia {
 
             stmt.setInt(1, pesquisa);
             resultSet = stmt.executeQuery();
-
 
             if(resultSet.next()) {
 
@@ -140,9 +135,7 @@ public class ProdutoPersistencia {
                 return produtoEncontrado;
 
             } else {
-
                 System.out.println("Nenhum produto encontrado com o ID: " + pesquisa);
-
                 return null;
             }
 
@@ -178,7 +171,7 @@ public class ProdutoPersistencia {
             ArrayList<ProdutoModel> lista = new ArrayList<>();
 
             stmt.setString(1, pesquisa);
-            resultSet= stmt.executeQuery();
+            resultSet = stmt.executeQuery();
 
             while(resultSet.next()){
 
@@ -205,7 +198,7 @@ public class ProdutoPersistencia {
         } catch (SQLException e) {
             throw new RuntimeException("Erro no banco de dados ao listar produtos por nome: " + e.getMessage());
 
-        }finally {
+        } finally {
             try {
                 if (stmt != null){
                     stmt.close();
