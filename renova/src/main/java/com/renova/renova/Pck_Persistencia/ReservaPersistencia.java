@@ -1,5 +1,6 @@
 package com.renova.renova.Pck_Persistencia;
 
+import com.renova.renova.Pck_Model.Pck_DTO.ReservaRequestDTO;
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_DAO.ConexaoMySql;
 import com.renova.renova.Pck_Model.ReservaModel;
@@ -12,10 +13,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ReservaPersistencia {
-    public boolean finalizarPedido(ReservaModel reserva, ArrayList<ProdutoModel> carrinho){
+    public boolean finalizarPedido(ReservaRequestDTO request){
         Connection conn = null;
         CallableStatement stmtReserva = null;
         CallableStatement stmtItens = null;
+
+        // Extraindo os objetos da requisição
+        ReservaModel reserva = request.getReserva();
+        ArrayList<ProdutoModel> carrinho = request.getCarrinho();
+
+        // Trava de segurança: impede que o código continue se o JSON estiver incompleto
+        if (reserva == null || carrinho == null || carrinho.isEmpty()) {
+            throw new IllegalArgumentException("Dados da reserva ou carrinho estão vazios ou incorretos.");
+        }
 
         try {
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
@@ -26,7 +36,7 @@ public class ReservaPersistencia {
             String sqlReserva = "{CALL PROC_CRIAR_RESERVA(?, ?, ?, ?)}";
             stmtReserva = conn.prepareCall(sqlReserva);
 
-            stmtReserva.setInt(1, reserva.getIdReserva());
+            stmtReserva.setInt(1, reserva.getIdUsuario());
             stmtReserva.setDouble(2, reserva.getTotalReserva());
             stmtReserva.setString(3, reserva.getMetodoPagamento());
 
@@ -53,7 +63,7 @@ public class ReservaPersistencia {
             return true;
 
         } catch (SQLException e) {
-            // caso de errado
+            // caso dê errado
             try {
                 if (conn != null) {
                     conn.rollback();

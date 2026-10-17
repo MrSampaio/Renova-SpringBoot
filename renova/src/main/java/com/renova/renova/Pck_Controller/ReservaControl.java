@@ -3,19 +3,19 @@ package com.renova.renova.Pck_Controller;
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_Persistencia.ReservaPersistencia;
 import com.renova.renova.Pck_Model.ReservaModel;
+import com.renova.renova.Pck_Model.Pck_DTO.ReservaRequestDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 
 @RestController
 public class ReservaControl {
 
     @PostMapping("/realizar-reserva")
-    public boolean realizarReserva(@RequestBody ReservaModel reserva, ArrayList<ProdutoModel> carrinho){
+    public boolean realizarReserva(@RequestBody ReservaRequestDTO request){
         ReservaPersistencia persistencia = new ReservaPersistencia();
-        return persistencia.finalizarPedido(reserva, carrinho);
+        return persistencia.finalizarPedido(request);
     }
 
     public ArrayList<ReservaModel> listarReservas(int idUsuario){
