@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_DTO/ReservaRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_DAO/ConexaoMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_DAO/ConexaoMySql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/ReservaModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/ReservaModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ReservaPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ReservaPersistencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/UsuarioControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/UsuarioControl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
