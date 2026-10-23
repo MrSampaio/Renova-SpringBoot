@@ -1,11 +1,11 @@
-package com.renova.renova.Pck_Model.Pck_DTO;
+package com.renova.renova.Pck_Model.Pck_Request;
 
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_Model.ReservaModel;
 
 import java.util.ArrayList;
 
-public class ReservaRequestDTO {
+public class ReservaRequest {
     private ReservaModel reserva;
     private ArrayList<ProdutoModel> carrinho;
 

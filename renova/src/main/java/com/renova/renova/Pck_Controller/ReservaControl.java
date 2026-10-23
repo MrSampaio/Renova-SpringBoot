@@ -3,7 +3,7 @@ package com.renova.renova.Pck_Controller;
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_Persistencia.ReservaPersistencia;
 import com.renova.renova.Pck_Model.ReservaModel;
-import com.renova.renova.Pck_Model.Pck_DTO.ReservaRequestDTO;
+import com.renova.renova.Pck_Model.Pck_Request.ReservaRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ReservaControl {
 
     // POST /reservas (Removemos o verbo da URL)
     @PostMapping
-    public boolean realizarReserva(@RequestBody ReservaRequestDTO request){
+    public boolean realizarReserva(@RequestBody ReservaRequest request){
         ReservaPersistencia persistencia = new ReservaPersistencia();
         return persistencia.finalizarPedido(request);
     }

@@ -1,6 +1,6 @@
 package com.renova.renova.Pck_Persistencia;
 
-import com.renova.renova.Pck_Model.Pck_DTO.ReservaRequestDTO;
+import com.renova.renova.Pck_Model.Pck_Request.ReservaRequest;
 import com.renova.renova.Pck_Model.ProdutoModel;
 import com.renova.renova.Pck_DAO.ConexaoMySql;
 import com.renova.renova.Pck_Model.ReservaModel;
@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ReservaPersistencia {
-    public boolean finalizarPedido(ReservaRequestDTO request){
+    public boolean finalizarPedido(ReservaRequest request){
         Connection conn = null;
         CallableStatement stmtReserva = null;
         CallableStatement stmtItens = null;
