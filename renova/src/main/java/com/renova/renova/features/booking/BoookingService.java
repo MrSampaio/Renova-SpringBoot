@@ -1,9 +1,8 @@
-package com.renova.renova.Pck_Persistencia;
+package com.renova.renova.features.booking;
 
-import com.renova.renova.Pck_Model.Pck_Request.ReservaRequest;
-import com.renova.renova.Pck_Model.Pck_Entities.ProdutoModel;
-import com.renova.renova.Pck_DAO.ConexaoMySql;
-import com.renova.renova.Pck_Model.Pck_Entities.ReservaModel;
+import com.renova.renova.features.booking.dto.BookingRequest;
+import com.renova.renova.features.products.Product;
+import com.renova.renova.config.ConexaoMySql;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -12,15 +11,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class ReservaPersistencia {
-    public boolean finalizarPedido(ReservaRequest request){
+public class BoookingService {
+    public boolean finalizarPedido(BookingRequest request){
         Connection conn = null;
         CallableStatement stmtReserva = null;
         CallableStatement stmtItens = null;
 
         // Extraindo os objetos da requisição
-        ReservaModel reserva = request.getReserva();
-        ArrayList<ProdutoModel> carrinho = request.getCarrinho();
+        Booking reserva = request.getReserva();
+        ArrayList<Product> carrinho = request.getCarrinho();
 
         // Trava de segurança: impede que o código continue se o JSON estiver incompleto
         if (reserva == null || carrinho == null || carrinho.isEmpty()) {
@@ -51,7 +50,7 @@ public class ReservaPersistencia {
             String sqlItens = "{CALL PROC_INSERIR_ITEM_RESERVA(?, ?)}";
             stmtItens = conn.prepareCall(sqlItens);
 
-            for (ProdutoModel produto : carrinho) {
+            for (Product produto : carrinho) {
                 stmtItens.setInt(1, idReservaGerado);
                 stmtItens.setInt(2, produto.getIdProduto());
 
@@ -91,7 +90,7 @@ public class ReservaPersistencia {
         }
     }
 
-    public ArrayList<ReservaModel> listarReservasPorUsuario(int idUsuario){
+    public ArrayList<Booking> listarReservasPorUsuario(int idUsuario){
 
         Connection conn = null;
         CallableStatement stmt = null;
@@ -109,14 +108,14 @@ public class ReservaPersistencia {
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
             stmt = conn.prepareCall(sql);
 
-            ArrayList<ReservaModel> lista = new ArrayList<>();
+            ArrayList<Booking> lista = new ArrayList<>();
 
             stmt.setInt(1, idUsuario);
             resultSet= stmt.executeQuery();
 
             while(resultSet.next()){
 
-                ReservaModel reserva = new ReservaModel();
+                Booking reserva = new Booking();
 
                 reserva.setIdReserva(resultSet.getInt("id_reserva"));
                 reserva.setTotalReserva(resultSet.getDouble("total_reserva"));
@@ -166,12 +165,12 @@ public class ReservaPersistencia {
         }
     }
 
-    public ArrayList<ProdutoModel> listarProdutosPorReserva(int idReserva) {
+    public ArrayList<Product> listarProdutosPorReserva(int idReserva) {
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet resultSet = null;
         String sql = "{CALL PROC_LISTAR_PRODUTOS_POR_RESERVA(?)}";
-        ArrayList<ProdutoModel> lista = new ArrayList<>();
+        ArrayList<Product> lista = new ArrayList<>();
 
         try {
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
@@ -180,7 +179,7 @@ public class ReservaPersistencia {
             resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                ProdutoModel p = new ProdutoModel();
+                Product p = new Product();
                 p.setIdProduto(resultSet.getInt("id_produto"));
                 p.setNomeProduto(resultSet.getString("nome_produto"));
                 p.setDescricao(resultSet.getString("descricao"));
@@ -201,7 +200,7 @@ public class ReservaPersistencia {
         }
     }
 
-    public ReservaModel buscarReservaPorId(int idReserva, int idUsuario) {
+    public Booking buscarReservaPorId(int idReserva, int idUsuario) {
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet resultSet = null;
@@ -221,7 +220,7 @@ public class ReservaPersistencia {
             resultSet = stmt.executeQuery();
 
             if (resultSet.next()) {
-                ReservaModel reserva = new ReservaModel();
+                Booking reserva = new Booking();
                 reserva.setIdReserva(resultSet.getInt("id_reserva"));
                 reserva.setTotalReserva(resultSet.getDouble("total_reserva"));
                 reserva.setMetodoPagamento(resultSet.getString("metodo_pagamento"));
@@ -257,7 +256,7 @@ public class ReservaPersistencia {
     }
 
     // LISTAR TODAS AS RESERVAS
-    public ArrayList<ReservaModel> listarTodasReservas() {
+    public ArrayList<Booking> listarTodasReservas() {
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet resultSet = null;
@@ -270,11 +269,11 @@ public class ReservaPersistencia {
             ConexaoMySql conexaoBD = new ConexaoMySql();
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
             stmt = conn.prepareCall(sql);
-            ArrayList<ReservaModel> lista = new ArrayList<>();
+            ArrayList<Booking> lista = new ArrayList<>();
             resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                ReservaModel reserva = new ReservaModel();
+                Booking reserva = new Booking();
                 reserva.setIdReserva(resultSet.getInt("id_reserva"));
                 reserva.setNomeCliente(resultSet.getString("nome_cliente")); // Campo novo!
                 reserva.setTotalReserva(resultSet.getDouble("total_reserva"));
@@ -304,7 +303,7 @@ public class ReservaPersistencia {
     }
 
     // BUSCAR RESERVA GERAL POR ID
-    public ReservaModel buscarReservaGeralPorId(int idReserva) {
+    public Booking buscarReservaGeralPorId(int idReserva) {
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet resultSet = null;
@@ -321,7 +320,7 @@ public class ReservaPersistencia {
             resultSet = stmt.executeQuery();
 
             if (resultSet.next()) {
-                ReservaModel reserva = new ReservaModel();
+                Booking reserva = new Booking();
                 reserva.setIdReserva(resultSet.getInt("id_reserva"));
                 reserva.setNomeCliente(resultSet.getString("nome_cliente")); // Campo novo!
                 reserva.setTotalReserva(resultSet.getDouble("total_reserva"));
@@ -352,7 +351,7 @@ public class ReservaPersistencia {
     }
 
     // BUSCAR RESERVAS POR NOME DO CLIENTE
-    public ArrayList<ReservaModel> buscarReservaPorNomeCliente(String nomeCliente) {
+    public ArrayList<Booking> buscarReservaPorNomeCliente(String nomeCliente) {
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet resultSet = null;
@@ -366,11 +365,11 @@ public class ReservaPersistencia {
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
             stmt = conn.prepareCall(sql);
             stmt.setString(1, nomeCliente);
-            ArrayList<ReservaModel> lista = new ArrayList<>();
+            ArrayList<Booking> lista = new ArrayList<>();
             resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                ReservaModel reserva = new ReservaModel();
+                Booking reserva = new Booking();
                 reserva.setIdReserva(resultSet.getInt("id_reserva"));
                 reserva.setNomeCliente(resultSet.getString("nome_cliente")); // Campo novo!
                 reserva.setTotalReserva(resultSet.getDouble("total_reserva"));

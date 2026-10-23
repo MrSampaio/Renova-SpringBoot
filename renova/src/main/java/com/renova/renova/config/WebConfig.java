@@ -1,4 +1,4 @@
-package com.renova.renova.Pck_Config;
+package com.renova.renova.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -1,4 +1,4 @@
-package com.renova.renova.Pck_DAO;
+package com.renova.renova.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

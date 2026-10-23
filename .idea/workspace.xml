@@ -5,12 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/dto/AuthResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/dto/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/dto/BookingRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renova/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_DTO/ReservaRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_DTO/ReservaRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/UsuarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/UsuarioModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ReservaPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ReservaPersistencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ProdutoControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/UsuarioControl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_DAO/ConexaoMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/config/ConexaoMySql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_DTO/LoginDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Entities/ProdutoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Entities/ReservaModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Entities/UsuarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Request/ReservaRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Roles/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ProdutoPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ReservaPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BoookingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/UsuarioPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +41,16 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/user-details" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {}
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/MrSampaio/Renova-SpringBoot&quot;,
@@ -55,28 +76,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.RenovaApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.RenovaApplication.executor": "Run",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "feature/web-config",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/sampaio/Documents/Renova-SpringBoot/Renova-SpringBoot",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.RenovaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.RenovaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/web-config&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sampaio/Documents/Renova-SpringBoot/Renova-SpringBoot&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="RenovaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />

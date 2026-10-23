@@ -1,7 +1,6 @@
-package com.renova.renova.Pck_Persistencia;
+package com.renova.renova.features.products;
 
-import com.renova.renova.Pck_Model.Pck_Entities.ProdutoModel;
-import com.renova.renova.Pck_DAO.ConexaoMySql;
+import com.renova.renova.config.ConexaoMySql;
 
 import java.sql.Connection;
 import java.sql.CallableStatement;
@@ -9,13 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProdutoPersistencia {
+public class ProductService {
 
     Connection conn = null;
     CallableStatement stmt = null;
     ResultSet resultSet;
 
-    public void cadastrarProduto(ProdutoModel produto){
+    public void cadastrarProduto(Product produto){
 
         String sql = "{CALL PROC_CADASTRAR_PRODUTO(?, ?, ?, ?)}";
 
@@ -53,7 +52,7 @@ public class ProdutoPersistencia {
         }
     }
 
-    public ArrayList<ProdutoModel> listarProduto() throws SQLException {
+    public ArrayList<Product> listarProduto() throws SQLException {
         String sql = "{CALL PROC_LISTAR_PRODUTOS()}";
 
         try{
@@ -62,13 +61,13 @@ public class ProdutoPersistencia {
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
             stmt = conn.prepareCall(sql);
 
-            ArrayList<ProdutoModel> lista = new ArrayList<>();
+            ArrayList<Product> lista = new ArrayList<>();
 
             resultSet = stmt.executeQuery();
 
             while(resultSet.next()){
 
-                ProdutoModel produto = new ProdutoModel();
+                Product produto = new Product();
 
                 produto.setIdProduto(resultSet.getInt("id_produto"));
                 produto.setNomeProduto(resultSet.getString("nome_produto"));
@@ -108,7 +107,7 @@ public class ProdutoPersistencia {
         }
     }
 
-    public ProdutoModel buscarProdutosID(int pesquisa) {
+    public Product buscarProdutosID(int pesquisa) {
 
         String sql = "{CALL PROC_BUSCAR_PRODUTO_POR_ID(?)}";
 
@@ -122,7 +121,7 @@ public class ProdutoPersistencia {
 
             if(resultSet.next()) {
 
-                ProdutoModel produtoEncontrado = new ProdutoModel();
+                Product produtoEncontrado = new Product();
 
                 produtoEncontrado.setIdProduto(resultSet.getInt("id_produto"));
                 produtoEncontrado.setNomeProduto(resultSet.getString("nome_produto"));
@@ -159,7 +158,7 @@ public class ProdutoPersistencia {
         }
     }
 
-    public ArrayList<ProdutoModel> buscarProdutosNome(String pesquisa) throws SQLException{
+    public ArrayList<Product> buscarProdutosNome(String pesquisa) throws SQLException{
         String sql = "{CALL PROC_BUSCAR_PRODUTO_POR_NOME(?)}";
 
         try{
@@ -168,14 +167,14 @@ public class ProdutoPersistencia {
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
             stmt = conn.prepareCall(sql);
 
-            ArrayList<ProdutoModel> lista = new ArrayList<>();
+            ArrayList<Product> lista = new ArrayList<>();
 
             stmt.setString(1, pesquisa);
             resultSet = stmt.executeQuery();
 
             while(resultSet.next()){
 
-                ProdutoModel produto = new ProdutoModel();
+                Product produto = new Product();
 
                 produto.setIdProduto(resultSet.getInt("id_produto"));
                 produto.setNomeProduto(resultSet.getString("nome_produto"));

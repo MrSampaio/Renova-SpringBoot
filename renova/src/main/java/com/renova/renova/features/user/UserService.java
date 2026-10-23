@@ -1,20 +1,19 @@
-package com.renova.renova.Pck_Persistencia;
+package com.renova.renova.features.user;
 
-import com.renova.renova.Pck_DAO.ConexaoMySql;
-import com.renova.renova.Pck_Model.Pck_Entities.UsuarioModel;
+import com.renova.renova.config.ConexaoMySql;
 
 import java.sql.Connection;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UsuarioPersistencia {
+public class UserService {
 
     Connection conn = null;
     CallableStatement stmt = null;
     boolean sucesso = false;
 
-    public UsuarioModel login (UsuarioModel usuario){
+    public User login (User usuario){
         String sql = "{CALL PROC_LOGIN_USUARIO(?, ?)}";
         Connection conn = null;
         CallableStatement stmt = null;
@@ -32,9 +31,9 @@ public class UsuarioPersistencia {
 
             if(result.next()){
                 try{
-                    usuario.setIdUsuario(result.getInt("id_usuario"));
+                    //usuario.setIdUsuario(result.getInt("id_usuario"));
                     usuario.setNome(result.getString("nome"));
-                    usuario.setTipoUsuario(result.getString("tipo_usuario"));
+                    usuario.setUserRole(result.getString ("tipo_usuario"));
 
                     System.out.println("Login feito.");
 
@@ -63,7 +62,7 @@ public class UsuarioPersistencia {
 
     }
 
-    public void CadastroUsuario(UsuarioModel usuario) throws Exception{
+    public void CadastroUsuario(User usuario) throws Exception{
 
         String sql = "{CALL PROC_CADASTRAR_USUARIO(?, ?, ?, ?, ?)}";
 
@@ -78,7 +77,7 @@ public class UsuarioPersistencia {
             stmt.setString(2, usuario.getTelefone());
             stmt.setString(3, usuario.getEmail());
             stmt.setString(4, usuario.getSenha());
-            stmt.setString(5, usuario.getTipoUsuario());
+            stmt.setString(5, usuario.getUserRole());
 
             int linhasAfetadas = stmt.executeUpdate();
 

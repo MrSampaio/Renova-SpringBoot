@@ -1,4 +1,4 @@
-package com.renova.renova.Pck_Model.Pck_Roles;
+package com.renova.renova.features.user;
 
 public enum UserRole {
     FUNCIONARIO("funcionario"),
@@ -8,5 +8,9 @@ public enum UserRole {
 
     UserRole(String role){
         this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

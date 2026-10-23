@@ -1,10 +1,10 @@
-package com.renova.renova.Pck_Model.Pck_Entities;
+package com.renova.renova.features.products;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "produtos")
-public class ProdutoModel {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

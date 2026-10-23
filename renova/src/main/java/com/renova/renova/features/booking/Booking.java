@@ -1,11 +1,11 @@
-package com.renova.renova.Pck_Model.Pck_Entities;
+package com.renova.renova.features.booking;
 
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "reservas")
-public class ReservaModel {
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

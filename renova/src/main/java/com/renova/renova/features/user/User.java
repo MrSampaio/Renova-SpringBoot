@@ -1,8 +1,11 @@
-package com.renova.renova.Pck_Model.Pck_Entities;
+package com.renova.renova.features.user;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -10,35 +13,24 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
-public class UsuarioModel implements UserDetails {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idUsuario;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String idUsuario;
+    @Getter
     private String nome;
+    @Getter
     private String email;
     private String senha;
+    @Getter
     private String telefone;
-    private String tipoUsuario;
-
-    public String getEmail() {
-        return email;
-    }
+    @Getter
+    @Setter
+    private UserRole userRole;
 
     public String getSenha() {
         return senha;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public String getTipoUsuario() {
-        return tipoUsuario;
     }
 
     public void setEmail(String email) {
@@ -79,23 +71,10 @@ public class UsuarioModel implements UserDetails {
         }
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
-        if (!tipoUsuario.toUpperCase().equals("CLIENTE") && !tipoUsuario.toUpperCase().equals("FUNCIONARIO")){
-            throw new IllegalArgumentException("Erro ao definir o tipo de usuário.");
-        } else{
-            this.tipoUsuario = tipoUsuario;
-        }
-
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        if(idUsuario <= 0) throw new IllegalArgumentException("Erro ao atribuir o ID do usuário.");
-        this.idUsuario = idUsuario;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        if(this.userRole == UserRole.FUNCIONARIO) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
