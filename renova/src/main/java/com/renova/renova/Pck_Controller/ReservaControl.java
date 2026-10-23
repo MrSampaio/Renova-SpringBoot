@@ -1,8 +1,8 @@
 package com.renova.renova.Pck_Controller;
 
-import com.renova.renova.Pck_Model.ProdutoModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ProdutoModel;
 import com.renova.renova.Pck_Persistencia.ReservaPersistencia;
-import com.renova.renova.Pck_Model.ReservaModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ReservaModel;
 import com.renova.renova.Pck_Model.Pck_Request.ReservaRequest;
 import org.springframework.web.bind.annotation.*;
 

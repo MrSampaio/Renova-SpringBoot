@@ -1,9 +1,9 @@
 package com.renova.renova.Pck_Persistencia;
 
 import com.renova.renova.Pck_Model.Pck_Request.ReservaRequest;
-import com.renova.renova.Pck_Model.ProdutoModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ProdutoModel;
 import com.renova.renova.Pck_DAO.ConexaoMySql;
-import com.renova.renova.Pck_Model.ReservaModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ReservaModel;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

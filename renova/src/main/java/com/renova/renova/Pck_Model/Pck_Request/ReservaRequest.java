@@ -1,7 +1,7 @@
 package com.renova.renova.Pck_Model.Pck_Request;
 
-import com.renova.renova.Pck_Model.ProdutoModel;
-import com.renova.renova.Pck_Model.ReservaModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ProdutoModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ReservaModel;
 
 import java.util.ArrayList;
 

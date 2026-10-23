@@ -1,4 +1,4 @@
-package com.renova.renova.Pck_Model;
+package com.renova.renova.Pck_Model.Pck_Entities;
 
 import jakarta.persistence.*;
 

@@ -1,7 +1,7 @@
 package com.renova.renova.Pck_Persistencia;
 
 import com.renova.renova.Pck_DAO.ConexaoMySql;
-import com.renova.renova.Pck_Model.UsuarioModel;
+import com.renova.renova.Pck_Model.Pck_Entities.UsuarioModel;
 
 import java.sql.Connection;
 import java.sql.CallableStatement;

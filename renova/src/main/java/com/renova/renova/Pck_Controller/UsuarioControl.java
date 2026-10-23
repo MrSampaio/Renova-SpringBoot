@@ -1,6 +1,6 @@
 package com.renova.renova.Pck_Controller;
 
-import com.renova.renova.Pck_Model.UsuarioModel;
+import com.renova.renova.Pck_Model.Pck_Entities.UsuarioModel;
 import com.renova.renova.Pck_Persistencia.UsuarioPersistencia;
 import org.springframework.web.bind.annotation.*;
 

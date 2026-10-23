@@ -1,7 +1,6 @@
 package com.renova.renova.Pck_Controller;
-import com.renova.renova.Pck_Model.ProdutoModel;
+import com.renova.renova.Pck_Model.Pck_Entities.ProdutoModel;
 import com.renova.renova.Pck_Persistencia.ProdutoPersistencia;
-import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
