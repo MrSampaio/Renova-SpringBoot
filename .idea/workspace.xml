@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/dto/CostumerRegistrationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/security/TokenService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/renova/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
