@@ -5,28 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/dto/AuthResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/dto/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/dto/BookingRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BookingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRoleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/resources/templates/database.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ProdutoControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/ReservaControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Controller/UsuarioControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_DAO/ConexaoMySql.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/config/ConexaoMySql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_DTO/LoginDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Entities/ProdutoModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Entities/ReservaModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Entities/UsuarioModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Request/ReservaRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Model/Pck_Roles/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ProdutoPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/ReservaPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BoookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/Pck_Persistencia/UsuarioPersistencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/auth/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/BoookingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/dto/BookingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/booking/dto/BookingRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

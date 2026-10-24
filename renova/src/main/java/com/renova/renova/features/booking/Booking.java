@@ -1,111 +1,128 @@
 package com.renova.renova.features.booking;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "reservas")
+@Table(name = "bookings")
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idReserva;
-    private int idUsuario;
-    private double totalReserva;
-    private String metodoPagamento;
-    private String dataReserva;
-    private String dataValidade;
-    private String statusReserva;
-    private String nomeCliente;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String bookingId;
 
-    public int getIdReserva() {
-        return idReserva;
+    private String userId;
+
+    @JdbcTypeCode(SqlTypes.DECIMAL) // column is DECIMAL(10,2) in MySQL
+    private double totalAmount;
+
+    private String paymentMethod;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime bookingDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate expirationDate;
+
+    private String status;
+
+    @Transient
+    private String customerName;
+
+    public String getBookingId() {
+        return bookingId;
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        if(idUsuario <= 0) throw new IllegalArgumentException("Erro ao atribuir o ID do usuário.");
-        this.idUsuario = idUsuario;
+    public void setUserId(String userId) {
+        if (userId == null || userId.isBlank()) throw new IllegalArgumentException("Error assigning the user ID.");
+        this.userId = userId;
     }
 
-    public double getTotalReserva() {
-        return totalReserva;
+    public double getTotalAmount() {
+        return totalAmount;
     }
 
-    public String getMetodoPagamento() {
-        return metodoPagamento;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public String getDataReserva() {
-        return dataReserva;
+    public LocalDateTime getBookingDate() {
+        return bookingDate;
     }
 
-    public String getDataValidade() {
-        return dataValidade;
+    public LocalDate getExpirationDate() {
+        return expirationDate;
     }
 
-    public String getStatusReserva() {
-        return statusReserva;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIdReserva(int idReserva) {
-        if(idReserva <= 0){
-            throw new IllegalArgumentException("Erro ao atribuir o ID da reserva.");
-        } else{
-            this.idReserva = idReserva;
+    public void setBookingId(String bookingId) {
+        if (bookingId == null || bookingId.isBlank()) {
+            throw new IllegalArgumentException("Error assigning the booking ID.");
+        } else {
+            this.bookingId = bookingId;
         }
     }
 
-    public void setTotalReserva(double totalReserva) {
-        if(totalReserva <= 0){
-            throw new IllegalArgumentException("Erro ao atribuir o valor da reserva.");
-        } else{
-            this.totalReserva = totalReserva;
+    public void setTotalAmount(double totalAmount) {
+        if (totalAmount <= 0) {
+            throw new IllegalArgumentException("Error assigning the booking amount.");
+        } else {
+            this.totalAmount = totalAmount;
         }
     }
 
-    public void setMetodoPagamento(String metodoPagamento) {
-        if(!metodoPagamento.toUpperCase().equals("DÉBITO") && !metodoPagamento.toUpperCase().equals("DINHEIRO") && !metodoPagamento.toUpperCase().equals("PIX")){
-            throw new IllegalArgumentException("Erro ao atribuir o método de pagamento da reserva.");
-        } else{
-            this.metodoPagamento = metodoPagamento;
-        }
-
-    }
-
-    public void setDataReserva(String dataReserva) {
-        if(dataReserva.isEmpty()){
-            throw new IllegalArgumentException("Erro ao atribuir a data de reserva.");
-        } else{
-            this.dataReserva = dataReserva;
-        }
-
-    }
-
-    public void setDataValidade(String dataValidade) {
-        if(dataValidade.isEmpty()){
-            throw new IllegalArgumentException("Erro ao atribuir a data de validade.");
-        } else{
-            this.dataValidade = dataValidade;
+    public void setPaymentMethod(String paymentMethod) {
+        if (!paymentMethod.toUpperCase().equals("DEBIT") && !paymentMethod.toUpperCase().equals("CASH") && !paymentMethod.toUpperCase().equals("PIX")) {
+            throw new IllegalArgumentException("Error assigning the booking payment method.");
+        } else {
+            this.paymentMethod = paymentMethod;
         }
     }
 
-    public void setStatusReserva(String statusReserva) {
-        if(!statusReserva.toUpperCase().equals("AGUARDANDO PAGAMENTO") && !statusReserva.toUpperCase().equals("CONCLUÍDA") && !statusReserva.toUpperCase().equals("CANCELADA")){
-            throw new IllegalArgumentException("Erro ao atribuir status da reserva.");
-        } else{
-            this.statusReserva = statusReserva;
+    public void setBookingDate(LocalDateTime bookingDate) {
+        if (bookingDate == null) {
+            throw new IllegalArgumentException("Error assigning the booking date.");
+        } else {
+            this.bookingDate = bookingDate;
         }
     }
 
-    public String getNomeCliente() {
-        return nomeCliente;
+    public void setExpirationDate(LocalDate expirationDate) {
+        if (expirationDate == null) {
+            throw new IllegalArgumentException("Error assigning the expiration date.");
+        } else {
+            this.expirationDate = expirationDate;
+        }
     }
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
+    public void setStatus(String status) {
+        // CHANGED: values now match the English ENUM of the database
+        // (they were AGUARDANDO PAGAMENTO / CONCLUÍDA / CANCELADA).
+        if (!status.toUpperCase().equals("AWAITING_PAYMENT") && !status.toUpperCase().equals("COMPLETED") && !status.toUpperCase().equals("CANCELLED")) {
+            throw new IllegalArgumentException("Error assigning the booking status.");
+        } else {
+            this.status = status;
+        }
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

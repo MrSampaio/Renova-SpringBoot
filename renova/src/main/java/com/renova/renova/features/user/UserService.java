@@ -11,95 +11,97 @@ public class UserService {
 
     Connection conn = null;
     CallableStatement stmt = null;
-    boolean sucesso = false;
+    boolean success = false;
 
-    public User login (User usuario){
-        String sql = "{CALL PROC_LOGIN_USUARIO(?, ?)}";
+    public User login(User user) {
+        String sql = "{CALL PROC_LOGIN_USER(?, ?)}";
         Connection conn = null;
         CallableStatement stmt = null;
         ResultSet result = null;
 
-        try{
-            ConexaoMySql conexaoBD = new ConexaoMySql();
+        try {
+            ConexaoMySql dbConnection = new ConexaoMySql();
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
             stmt = conn.prepareCall(sql);
 
-            stmt.setString(1, usuario.getEmail());
-            stmt.setString(2, usuario.getSenha());
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPassword());
 
             result = stmt.executeQuery();
 
-            if(result.next()){
-                try{
-                    //usuario.setIdUsuario(result.getInt("id_usuario"));
-                    usuario.setNome(result.getString("nome"));
-                    usuario.setUserRole(result.getString ("tipo_usuario"));
+            if (result.next()) {
+                try {
+                    //user.setUserId(result.getString("user_id"));
+                    user.setName(result.getString("name"));
+                    user.setUserRole(UserRole.fromRole(result.getString("user_role")));
 
-                    System.out.println("Login feito.");
+                    System.out.println("Login successful.");
 
-                    return usuario;
+                    return user;
 
                 } catch (Exception e) {
-                    throw new RuntimeException("Erro ao atribuir valores ao objeto usuário após login: " + e);
+                    throw new RuntimeException("Error assigning values to the user object after login: " + e);
                 }
 
-            } else{
-                System.out.println("Erro ao logar.");
+            } else {
+                System.out.println("Login failed.");
                 return null;
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao conectar com o banco de dados no login: " + e.getMessage());
+            throw new RuntimeException("Error connecting to the database during login: " + e.getMessage());
         } finally {
             try {
                 if (result != null) result.close();
                 if (stmt != null) stmt.close();
                 if (conn != null) new ConexaoMySql().desconectar();
             } catch (SQLException e) {
-                System.out.println("Aviso: Falha ao fechar conexão - " + e.getMessage());
+                System.out.println("Warning: Failed to close connection - " + e.getMessage());
             }
         }
 
     }
 
-    public void CadastroUsuario(User usuario) throws Exception{
+    public void registerUser(User user) throws Exception {
 
-        String sql = "{CALL PROC_CADASTRAR_USUARIO(?, ?, ?, ?, ?)}";
+        String sql = "{CALL PROC_REGISTER_USER(?, ?, ?, ?, ?)}";
 
-        try{
-            ConexaoMySql conexaoBD = new ConexaoMySql();
+        try {
+            ConexaoMySql dbConnection = new ConexaoMySql();
 
             conn = ConexaoMySql.getConn(ConexaoMySql.login, ConexaoMySql.senha);
 
             stmt = conn.prepareCall(sql);
 
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getTelefone());
-            stmt.setString(3, usuario.getEmail());
-            stmt.setString(4, usuario.getSenha());
-            stmt.setString(5, usuario.getUserRole());
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getPhone());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPassword());
+            // CHANGED: the original passed a UserRole to setString(), which does not compile.
+            // getRole() returns the database value ("funcionario" / "cliente").
+            stmt.setString(5, user.getUserRole().getRole());
 
-            int linhasAfetadas = stmt.executeUpdate();
+            int affectedRows = stmt.executeUpdate();
 
-            if(linhasAfetadas > 0){
-                System.out.println("Novo usuario cadastrado com sucesso.");
-            } else{
-                System.out.println("Erro ao cadastrar usuario.");
+            if (affectedRows > 0) {
+                System.out.println("New user registered successfully.");
+            } else {
+                System.out.println("Error registering user.");
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro no banco de dados ao cadastrar usuário: " + e.getMessage());
+            throw new RuntimeException("Database error while registering user: " + e.getMessage());
 
-        }finally {
+        } finally {
             try {
-                if (stmt != null){
+                if (stmt != null) {
                     stmt.close();
                 }
-                if (conn != null){
+                if (conn != null) {
                     new ConexaoMySql().desconectar();
                 }
             } catch (SQLException e) {
-                System.out.println("Falha ao fechar a conexão com o banco - " + e.getMessage());
+                System.out.println("Failed to close the database connection - " + e.getMessage());
 
             }
         }
