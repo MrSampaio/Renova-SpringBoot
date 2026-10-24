@@ -1,11 +1,14 @@
 package com.renova.renova.features.auth;
 
+import com.renova.renova.features.auth.dto.AuthResponse;
 import com.renova.renova.features.auth.dto.LoginRequest;
 import com.renova.renova.features.auth.dto.CostumerRegistrationRequest;
 import com.renova.renova.features.user.User;
 import com.renova.renova.features.user.UserRepository;
 import com.renova.renova.features.user.UserRole;
+import com.renova.renova.security.TokenService;
 import jakarta.validation.Valid;
+import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("auth")
@@ -26,12 +31,16 @@ public class AuthController {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid LoginRequest data) {
         var emailPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authManager.authenticate(emailPassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) Objects.requireNonNull(auth.getPrincipal()));
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/register-costumer")
