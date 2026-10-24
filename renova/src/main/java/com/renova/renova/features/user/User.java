@@ -3,6 +3,7 @@ package com.renova.renova.features.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -37,6 +39,14 @@ public class User implements UserDetails {
     @Setter
     @Convert(converter = UserRoleConverter.class)
     private UserRole userRole;
+
+    public User(String email, String password, String name, String phone, UserRole userRole) {
+        this.setEmail(email);
+        this.setPassword(password);
+        this.setName(name);
+        this.setPhone(phone);
+        this.userRole = userRole;
+    }
 
     public void setEmail(String email) {
         // regex that defines what a valid e-mail looks like

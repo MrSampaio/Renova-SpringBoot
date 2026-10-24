@@ -1,4 +1,4 @@
 package com.renova.renova.features.auth.dto;
 
-public class LoginRequest {
+public record LoginRequest(String email, String password) {
 }
