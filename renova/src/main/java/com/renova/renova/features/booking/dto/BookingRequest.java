@@ -6,22 +6,22 @@ import com.renova.renova.features.products.Product;
 import java.util.ArrayList;
 
 public class BookingRequest {
-    private Booking reserva;
-    private ArrayList<Product> carrinho;
+    private Booking booking;
+    private ArrayList<Product> basket;
 
-    public Booking getReserva() {
-        return reserva;
+    public Booking getBooking() {
+        return booking;
     }
 
-    public void setReserva(Booking reserva) {
-        this.reserva = reserva;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
-    public ArrayList<Product> getCarrinho() {
-        return carrinho;
+    public ArrayList<Product> getBasket() {
+        return basket;
     }
 
-    public void setCarrinho(ArrayList<Product> carrinho) {
-        this.carrinho = carrinho;
+    public void setBasket(ArrayList<Product> basket) {
+        this.basket = basket;
     }
 }

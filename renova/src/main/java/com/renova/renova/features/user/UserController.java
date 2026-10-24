@@ -8,17 +8,16 @@ public class UserController {
 
     // POST /usuarios
     @PostMapping
-    public void cadastrarUsuario(@RequestBody User usuario) throws Exception {
-        UserService persistencia = new UserService();
-        persistencia.CadastroUsuario(usuario);
+    public void createUser(@RequestBody User user) throws Exception {
+        UserService userService = new UserService();
+        userService.registerUser(user);
     }
 
     // POST /usuarios/login
     @PostMapping("/login")
-    public User realizarLogin(@RequestBody User credenciais) {
-        UserService persistencia = new UserService();
-        return persistencia.login(credenciais);
+    public User login(@RequestBody User credentials) {
+        UserService userService = new UserService();
+        return userService.login(credentials);
     }
-
 
 }

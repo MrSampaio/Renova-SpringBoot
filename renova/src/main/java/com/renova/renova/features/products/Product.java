@@ -1,64 +1,73 @@
 package com.renova.renova.features.products;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
-@Table(name = "produtos")
+@Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idProduto;
-    private String nomeProduto;
-    private String descricao;
-    private double preco;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String productId;
+
+    private String productName;
+
+    private String description;
+
+    @JdbcTypeCode(SqlTypes.DECIMAL)
+    private double price;
+
+    @JsonProperty("status")
     private String status;
 
-    public int getIdProduto() {
-        return idProduto;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setIdProduto(int idProduto) {
-        if(idProduto <= 0){
-            throw new IllegalArgumentException("Erro ao adicionar id do produto.");
-        } else{
-            this.idProduto = idProduto;
+    public void setProductId(String productId) {
+        if (productId == null || productId.isBlank()) {
+            throw new IllegalArgumentException("Error assigning the product ID.");
+        } else {
+            this.productId = productId;
         }
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        if(nomeProduto == null || nomeProduto.isEmpty() || nomeProduto.length() <= 0){
-            throw new IllegalArgumentException("O campo de 'nome do produto' é obrigatório!");
-        } else{
-            this.nomeProduto = nomeProduto;
+    public void setProductName(String productName) {
+        if (productName == null || productName.isEmpty() || productName.length() <= 0) {
+            throw new IllegalArgumentException("The 'product name' field is required!");
+        } else {
+            this.productName = productName;
         }
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        if(descricao == null || descricao.isEmpty() || descricao.length() <= 0){
-            throw new IllegalArgumentException("O campo de 'descrição' é obrigatório!");
-        } else{
-            this.descricao = descricao;
+    public void setDescription(String description) {
+        if (description == null || description.isEmpty() || description.length() <= 0) {
+            throw new IllegalArgumentException("The 'description' field is required!");
+        } else {
+            this.description = description;
         }
     }
 
-    public double getPreco() {
-        return preco;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPreco(double preco) {
-        if(preco <= 0.0){
-            throw new IllegalArgumentException("Informe um valor válido ao produto.");
-        } else{
-            this.preco = preco;
+    public void setPrice(double price) {
+        if (price <= 0.0) {
+            throw new IllegalArgumentException("Enter a valid price for the product.");
+        } else {
+            this.price = price;
         }
     }
 
@@ -67,11 +76,10 @@ public class Product {
     }
 
     public void setStatus(String status) {
-        if(!status.toUpperCase().equals("DISPONÍVEL") && !status.toUpperCase().equals("RESERVADO") && !status.toUpperCase().equals("VENDIDO")){
-            throw new IllegalArgumentException("Erro ao atribuir status do produto.");
-        } else{
+        if (!status.toUpperCase().equals("AVAILABLE") && !status.toUpperCase().equals("RESERVED") && !status.toUpperCase().equals("SOLD")) {
+            throw new IllegalArgumentException("Error assigning the product status.");
+        } else {
             this.status = status;
         }
-
     }
 }

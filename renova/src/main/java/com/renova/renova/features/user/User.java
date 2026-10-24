@@ -1,5 +1,6 @@
 package com.renova.renova.features.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,79 +13,83 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String idUsuario;
+    private String userId;
+
     @Getter
-    private String nome;
+    private String name;
+
     @Getter
+    @Column(unique = true)
     private String email;
-    private String senha;
+
+    private String password;
+
     @Getter
-    private String telefone;
+    @Column(columnDefinition = "CHAR(11)")
+    private String phone;
+
     @Getter
     @Setter
+    @Convert(converter = UserRoleConverter.class)
     private UserRole userRole;
 
-    public String getSenha() {
-        return senha;
-    }
-
     public void setEmail(String email) {
-        // regex que define como um e-mail válido deve parecer
-        String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        // regex that defines what a valid e-mail looks like
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
-        // verifica se o email é nulo e se base com os requisitos do regex
-        if (email != null && email.matches(regexEmail)) {
+        // checks that the e-mail is not null and matches the regex
+        if (email != null && email.matches(emailRegex)) {
             this.email = email;
         } else {
-            throw new IllegalArgumentException("E-mail com formato inválido! Use o padrão nome@email.com.");
+            throw new IllegalArgumentException("Invalid e-mail format! Use the pattern name@email.com.");
         }
     }
 
-    public void setSenha(String senha) {
+    public void setPassword(String password) {
 
-        if(senha.isEmpty() || senha == null || senha.length() < 5){
-            throw new IllegalArgumentException("Senha Inválida! Informe uma senha com pelo menos 5 dígitos.");
-        } else{
-            this.senha = senha;
+        if (password.isEmpty() || password == null || password.length() < 5) {
+            throw new IllegalArgumentException("Invalid password! Enter a password with at least 5 characters.");
+        } else {
+            this.password = password;
         }
     }
 
-    public void setTelefone(String telefone) {
-        if (telefone.length() != 11){
-            throw new IllegalArgumentException("Número de telefone inválido! Informe um telefone com o 11 digitos.");
-        } else{
-            this.telefone = telefone;
+    public void setPhone(String phone) {
+        if (phone.length() != 11) {
+            throw new IllegalArgumentException("Invalid phone number! Enter a phone number with 11 digits.");
+        } else {
+            this.phone = phone;
         }
 
     }
 
-    public void setNome(String nome) {
-        if(nome == null || nome.isEmpty() || nome.length() <= 0){
-            throw new IllegalArgumentException("O campo de 'nome' é obrigatório!");
-        } else{
-            this.nome = nome;
+    public void setName(String name) {
+        if (name == null || name.isEmpty() || name.length() <= 0) {
+            throw new IllegalArgumentException("The 'name' field is required!");
+        } else {
+            this.name = name;
         }
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.userRole == UserRole.FUNCIONARIO) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        if (this.userRole == UserRole.EMPLOYEE) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public @Nullable String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return nome;
+        return email;
     }
 
     @Override
