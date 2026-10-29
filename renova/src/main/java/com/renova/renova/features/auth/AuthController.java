@@ -15,6 +15,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Objects;
 
@@ -38,7 +40,15 @@ public class AuthController {
         var auth = this.authManager.authenticate(emailPassword);
 
         var token = tokenService.generateToken((User) Objects.requireNonNull(auth.getPrincipal()));
-        return ResponseEntity.ok(new AuthResponse(token));
+
+        // criação do cookie HTTP-Only
+        Cookie cookie = new Cookie("jwt_token", token);
+        cookie.setHttpOnly(true); // oculta do JavaScript
+        cookie.setSecure(false); // MUDAR PARA TRUE QUANDO FOR PRA PRODUÇÃO
+        cookie.setPath("/"); // libera para todas as rotas da API
+        cookie.setMaxAge(7200); // duraçåo de duas horas
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register-costumer")
