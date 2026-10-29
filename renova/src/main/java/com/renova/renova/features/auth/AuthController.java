@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class AuthController {
 
     @Autowired
@@ -35,24 +35,19 @@ public class AuthController {
     TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid LoginRequest data) {
+    public ResponseEntity login(@RequestBody @Valid LoginRequest data, HttpServletResponse response) {
         var emailPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authManager.authenticate(emailPassword);
 
         var token = tokenService.generateToken((User) Objects.requireNonNull(auth.getPrincipal()));
 
-        // criação do cookie HTTP-Only
-        Cookie cookie = new Cookie("jwt_token", token);
-        cookie.setHttpOnly(true); // oculta do JavaScript
-        cookie.setSecure(false); // MUDAR PARA TRUE QUANDO FOR PRA PRODUÇÃO
-        cookie.setPath("/"); // libera para todas as rotas da API
-        cookie.setMaxAge(7200); // duraçåo de duas horas
+        this.addJwtCookie(response, token);
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register-costumer")
-    public ResponseEntity register(@RequestBody @Valid CostumerRegistrationRequest data) {
+    public ResponseEntity register(@RequestBody @Valid CostumerRegistrationRequest data, HttpServletResponse response) {
         if (this.repository.findByEmail(data.email()) != null) {
             return ResponseEntity.badRequest().build();
         }
@@ -62,6 +57,23 @@ public class AuthController {
 
         this.repository.save(newUser);
 
+        // gera o token diretamente para o usuário recém-criado
+        var token = tokenService.generateToken(newUser);
+
+        // anexa o cookie HTTP-Only para logar automaticamente
+        this.addJwtCookie(response, token);
+
         return ResponseEntity.ok().build();
+    }
+
+    private void addJwtCookie(HttpServletResponse response, String token) {
+        // criação do cookie HTTP-Only
+        Cookie cookie = new Cookie("jwt_token", token);
+        cookie.setHttpOnly(true); // oculta do JavaScript
+        cookie.setSecure(false); // MUDAR PARA TRUE QUANDO FOR PRA PRODUÇÃO
+        cookie.setPath("/"); // libera para todas as rotas da API
+        cookie.setMaxAge(7200); // duraçåo de duas horas
+
+        response.addCookie(cookie);
     }
 }
