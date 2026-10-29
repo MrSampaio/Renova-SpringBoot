@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/catalog")
 public class ProductController {
 
     // POST /produtos

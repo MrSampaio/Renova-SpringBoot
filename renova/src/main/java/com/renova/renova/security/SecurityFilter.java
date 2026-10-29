@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.w3c.dom.html.HTMLTableCaptionElement;
+import jakarta.servlet.http.Cookie;
 
 import java.io.IOException;
 import java.security.Security;
@@ -40,12 +41,15 @@ public class SecurityFilter extends OncePerRequestFilter{
         filterChain.doFilter(request, response);
     }
 
+    // traduz o cookie de volta para jwt
     private String recoverToken(HttpServletRequest httpServletRequest){
-        var authHeader = httpServletRequest.getHeader("Authorization");
-        if (authHeader == null){
-            return null;
-        } else{
-            return authHeader.replace("Bearer ", "");
+        if (httpServletRequest.getCookies() != null) {
+            for (Cookie cookie : httpServletRequest.getCookies()) {
+                if ("jwt_token".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
         }
+        return null;
     }
 }

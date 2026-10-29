@@ -38,7 +38,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-costumer").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/produtos").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/catalog").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/catalog").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -48,7 +49,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        // muda depois para o front deployado
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
