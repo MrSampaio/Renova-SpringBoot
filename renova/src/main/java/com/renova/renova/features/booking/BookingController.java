@@ -2,64 +2,56 @@ package com.renova.renova.features.booking;
 
 import com.renova.renova.features.booking.dto.BookingRequest;
 import com.renova.renova.features.products.Product;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-@RequestMapping("/reservas")
-@CrossOrigin(origins = "*")
+@RequestMapping("/bookings")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class BookingController {
 
-    // POST /reservas
+    @Autowired
+    private BookingService bookingService;
+
     @PostMapping
-    public boolean createBooking(@RequestBody BookingRequest request) {
-        BookingService bookingService = new BookingService();
-        return bookingService.finalizeBooking(request);
+    public ResponseEntity<Boolean> createBooking(@RequestBody @Valid BookingRequest request) {
+        return ResponseEntity.ok(bookingService.finalizeBooking(request));
     }
 
-    // GET /reservas
-    // GET /reservas?nomeCliente=Sampaio
     @GetMapping
-    public ArrayList<Booking> listBookings(@RequestParam(name = "nomeCliente", required = false) String customerName) {
-        BookingService bookingService = new BookingService();
-
-        if (customerName != null && !customerName.isEmpty()) {
-            return bookingService.findBookingsByCustomerName(customerName);
+    public ResponseEntity<List<Booking>> listBookings(@RequestParam(name = "customerName", required = false) String customerName) {
+        if (customerName != null && !customerName.isBlank()) {
+            return ResponseEntity.ok(bookingService.findBookingsByCustomerName(customerName));
         }
-        return bookingService.listAllBookings();
+        return ResponseEntity.ok(bookingService.listAllBookings());
     }
 
-    // GET /reservas/usuario/1
-    @GetMapping("/usuario/{userId}")
-    public ArrayList<Booking> listUserBookings(@PathVariable String userId) {
-        BookingService bookingService = new BookingService();
-        return bookingService.listBookingsByUser(userId);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Booking>> listUserBookings(@PathVariable String userId) {
+        return ResponseEntity.ok(bookingService.listBookingsByUser(userId));
     }
 
-    // GET /reservas/5/produtos
-    @GetMapping("/{bookingId}/produtos")
-    public ArrayList<Product> listProductsByBooking(@PathVariable String bookingId) {
-        BookingService bookingService = new BookingService();
-        return bookingService.listProductsByBooking(bookingId);
+    @GetMapping("/{bookingId}/products")
+    public ResponseEntity<List<Product>> listProductsByBooking(@PathVariable String bookingId) {
+        return ResponseEntity.ok(bookingService.listProductsByBooking(bookingId));
     }
 
-    // GET /reservas/5
-    // GET /reservas/5?idUsuario=1
     @GetMapping("/{bookingId}")
-    public Booking findBookingById(@PathVariable String bookingId, @RequestParam(name = "idUsuario", required = false) String userId) {
-        BookingService bookingService = new BookingService();
-
-        if (userId != null) {
-            return bookingService.findBookingById(bookingId, userId);
-        }
-        return bookingService.findAnyBookingById(bookingId);
+    public ResponseEntity<Booking> findBookingById(@PathVariable String bookingId) {
+        Booking booking = bookingService.findBookingById(bookingId);
+        return booking != null ? ResponseEntity.ok(booking) : ResponseEntity.notFound().build();
     }
 
-    // PATCH /reservas/5/status?novoStatus=Concluída
     @PatchMapping("/{bookingId}/status")
-    public void updateBookingStatus(@PathVariable String bookingId, @RequestParam("novoStatus") String newStatus) {
-        BookingService bookingService = new BookingService();
+    public ResponseEntity<Void> updateBookingStatus(
+            @PathVariable String bookingId,
+            @RequestParam("newStatus") BookingStatus newStatus) {
+
         bookingService.updateBookingStatus(bookingId, newStatus);
+        return ResponseEntity.ok().build();
     }
 }
