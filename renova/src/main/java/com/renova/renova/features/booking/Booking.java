@@ -1,28 +1,44 @@
 package com.renova.renova.features.booking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.renova.renova.features.products.Product;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bookings")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String bookingId;
 
+    @NotBlank(message = "O ID do usuário é obrigatório.")
+    @Column(name = "user_id")
     private String userId;
 
-    @JdbcTypeCode(SqlTypes.DECIMAL) // column is DECIMAL(10,2) in MySQL
+    @JdbcTypeCode(SqlTypes.DECIMAL)
+    @Positive(message = "O valor total da reserva deve ser maior que zero.")
     private double totalAmount;
 
-    private String paymentMethod;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "O método de pagamento é obrigatório.")
+    private PaymentMethod paymentMethod;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime bookingDate;
@@ -30,99 +46,17 @@ public class Booking {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate expirationDate;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
 
     @Transient
     private String customerName;
 
-    public String getBookingId() {
-        return bookingId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        if (userId == null || userId.isBlank()) throw new IllegalArgumentException("Error assigning the user ID.");
-        this.userId = userId;
-    }
-
-    public double getTotalAmount() {
-        return totalAmount;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public LocalDateTime getBookingDate() {
-        return bookingDate;
-    }
-
-    public LocalDate getExpirationDate() {
-        return expirationDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setBookingId(String bookingId) {
-        if (bookingId == null || bookingId.isBlank()) {
-            throw new IllegalArgumentException("Error assigning the booking ID.");
-        } else {
-            this.bookingId = bookingId;
-        }
-    }
-
-    public void setTotalAmount(double totalAmount) {
-        if (totalAmount <= 0) {
-            throw new IllegalArgumentException("Error assigning the booking amount.");
-        } else {
-            this.totalAmount = totalAmount;
-        }
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        if (!paymentMethod.toUpperCase().equals("DEBIT") && !paymentMethod.toUpperCase().equals("CASH") && !paymentMethod.toUpperCase().equals("PIX")) {
-            throw new IllegalArgumentException("Error assigning the booking payment method.");
-        } else {
-            this.paymentMethod = paymentMethod;
-        }
-    }
-
-    public void setBookingDate(LocalDateTime bookingDate) {
-        if (bookingDate == null) {
-            throw new IllegalArgumentException("Error assigning the booking date.");
-        } else {
-            this.bookingDate = bookingDate;
-        }
-    }
-
-    public void setExpirationDate(LocalDate expirationDate) {
-        if (expirationDate == null) {
-            throw new IllegalArgumentException("Error assigning the expiration date.");
-        } else {
-            this.expirationDate = expirationDate;
-        }
-    }
-
-    public void setStatus(String status) {
-        // CHANGED: values now match the English ENUM of the database
-        // (they were AGUARDANDO PAGAMENTO / CONCLUÍDA / CANCELADA).
-        if (!status.toUpperCase().equals("AWAITING_PAYMENT") && !status.toUpperCase().equals("COMPLETED") && !status.toUpperCase().equals("CANCELLED")) {
-            throw new IllegalArgumentException("Error assigning the booking status.");
-        } else {
-            this.status = status;
-        }
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "booking_items", // Nome da sua tabela de junção no banco
+            joinColumns = @JoinColumn(name = "booking_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products = new ArrayList<>();
 }

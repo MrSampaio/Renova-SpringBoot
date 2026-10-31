@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/reservas")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class BookingController {
 
     // POST /reservas
