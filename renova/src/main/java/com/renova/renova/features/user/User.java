@@ -2,6 +2,7 @@ package com.renova.renova.features.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
 
     @Getter
     @Column(unique = true)
+    @NotNull
     private String email;
 
     private String password;
