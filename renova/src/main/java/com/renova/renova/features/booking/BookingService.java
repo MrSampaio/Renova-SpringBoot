@@ -18,18 +18,14 @@ public class BookingService {
     // garante que tudo salva ou tudo cancela na hora
     @Transactional
     public boolean finalizeBooking(BookingRequest request) {
-        Booking booking = request.getBooking();
-        List<Product> cart = request.getBasket();
-
-        if (booking == null || cart == null || cart.isEmpty()) {
-            throw new IllegalArgumentException("Dados da reserva ou carrinho estão vazios.");
-        }
+        Booking booking = request.booking();
+        List<Product> cart = request.basket();
 
         // define os dados de criação
         booking.setBookingDate(LocalDateTime.now());
         booking.setStatus(BookingStatus.AWAITING_PAYMENT);
 
-        // JPA vai automaticamente pegar esses produtos e fazer os INSERTS na tabela booking_items
+        // JPA vai pegar esses produtos e fazer os INSERTS na booking_items
         booking.setProducts(cart);
 
         bookingRepository.save(booking);
