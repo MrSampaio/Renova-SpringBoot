@@ -2,26 +2,20 @@ package com.renova.renova.features.booking.dto;
 
 import com.renova.renova.features.booking.Booking;
 import com.renova.renova.features.products.Product;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class BookingRequest {
-    private Booking booking;
-    private ArrayList<Product> basket;
+public record BookingRequest(
 
-    public Booking getBooking() {
-        return booking;
-    }
+        @NotNull(message = "Os dados da reserva são obrigatórios.")
+        @Valid // adiciona @NotNull e @Positive
+        Booking booking,
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
+        @NotEmpty(message = "O carrinho não pode estar vazio.")
+        @Valid // valida cada produto na lista
+        List<Product> basket
 
-    public ArrayList<Product> getBasket() {
-        return basket;
-    }
-
-    public void setBasket(ArrayList<Product> basket) {
-        this.basket = basket;
-    }
-}
+) {}
