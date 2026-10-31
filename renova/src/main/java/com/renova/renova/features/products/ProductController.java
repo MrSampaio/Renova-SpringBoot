@@ -1,53 +1,37 @@
 package com.renova.renova.features.products;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/catalog")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class ProductController {
 
-    // POST /produtos
-    @PostMapping("")
-    public void createProduct(@RequestBody Product requestProduct) {
+    @Autowired
+    private ProductService productService;
 
-        Product product = new Product();
-        product.setProductName(requestProduct.getProductName());
-        product.setDescription(requestProduct.getDescription());
-        product.setPrice(requestProduct.getPrice());
-        product.setStatus(requestProduct.getStatus());
-
-        ProductService productService = new ProductService();
-        productService.registerProduct(product);
+    // POST /catalog
+    @PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid Product product) {
+        Product savedProduct = productService.registerProduct(product);
+        return ResponseEntity.ok(savedProduct);
     }
 
-    // GET /produtos  (lists all)
-    // GET /produtos?nome=Camisa (filters by name)
-    @GetMapping("")
-    public ArrayList<Product> listProducts(@RequestParam(value = "nome", required = false) String name) throws Exception {
-        ProductService productService = new ProductService();
-
-        // if the user sent a name in the URL, run the filtered search
-        if (name != null && !name.isEmpty()) {
-            return productService.findProductsByName(name);
+    @GetMapping
+    public ResponseEntity<List<Product>> listProducts(@RequestParam(value = "nome", required = false) String name) {
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(productService.findProductsByName(name));
         }
-
-        // if nothing was sent, list everything
-        return productService.listProducts();
+        return ResponseEntity.ok(productService.listProducts());
     }
 
-    // GET /produtos/1 (filters by id)
     @GetMapping("/{id}")
-    public Product findProductById(@PathVariable String id) throws Exception {
-        ProductService productService = new ProductService();
-        return productService.findProductById(id);
+    public ResponseEntity<Product> findProductById(@PathVariable String id) {
+        return ResponseEntity.ok(productService.findProductById(id));
     }
-
-//    @GetMapping("")
-//    public ArrayList<Product> findProductsByName(String searchTerm) throws Exception{
-//        ProductService productService = new ProductService();
-//
-//        return productService.findProductsByName(searchTerm);
-//    }
 }
