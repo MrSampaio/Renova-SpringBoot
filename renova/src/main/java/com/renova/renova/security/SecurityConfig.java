@@ -38,9 +38,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-costumer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/catalog").hasRole("EMPLOYEE")
-                        .requestMatchers(HttpMethod.GET, "/catalog").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/catalog", "/catalog/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/images/products/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

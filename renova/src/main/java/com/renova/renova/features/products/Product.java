@@ -36,4 +36,7 @@ public class Product {
     @NotNull(message = "O status do produto é obrigatório.")
     private ProductStatus status;
 
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
 }
