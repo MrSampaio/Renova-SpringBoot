@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83397b5c-882b-4b33-bb63-a698f01bc0a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/dto/ProductCreateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/dto/ProductResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/features/products/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/java/com/renova/renova/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renova/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/renova/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +84,11 @@
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/renova/uploads/images" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="RenovaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />

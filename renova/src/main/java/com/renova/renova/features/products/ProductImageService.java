@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
 
 @Service
 public class ProductImageService {
@@ -126,5 +128,15 @@ public class ProductImageService {
         if (contentType == null || !ALLOWED_CONTENT_TYPES.contains(contentType)) {
             throw new IllegalArgumentException("Invalid format. Upload JPG, PNG or WEBP images.");
         }
+    }
+
+    public String buildImageUrl(Product product) {
+        if (product.getImageUrl() == null) {
+            return null;
+        }
+        return ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path(product.getImageUrl())
+                .toUriString();
     }
 }
