@@ -37,14 +37,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-costumer").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/catalog").hasRole("EMPLOYEE")
-                        .requestMatchers(HttpMethod.POST, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
-                        .requestMatchers(HttpMethod.GET, "/catalog", "/catalog/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/images/products/**").permitAll()
-
+                        .requestMatchers(HttpMethod.GET, "/catalog", "/catalog/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.PUT, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.PATCH, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.DELETE, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()
                 )
-
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -55,11 +55,9 @@ public class SecurityConfig {
 
         // muda depois para o front deployado
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

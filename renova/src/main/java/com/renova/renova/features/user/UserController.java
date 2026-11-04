@@ -18,9 +18,13 @@ public class UserController {
     // retorna os dados do usuario logado
     @GetMapping("/me")
     public ResponseEntity<User> getMyProfile(@AuthenticationPrincipal User loggedUser) {
-        // O loggedUser já contém as informações descodificadas do token!
+        if (loggedUser == null) {
+            return ResponseEntity.status(401).build();
+        }
         return ResponseEntity.ok(userService.getProfile(loggedUser.getEmail()));
     }
+
+
 
     // atualiza os dados do usuario logado
     @PutMapping("/me")

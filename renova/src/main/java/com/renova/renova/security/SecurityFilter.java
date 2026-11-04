@@ -1,5 +1,6 @@
 package com.renova.renova.security;
 
+import com.renova.renova.features.user.User;
 import com.renova.renova.features.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -28,28 +29,40 @@ public class SecurityFilter extends OncePerRequestFilter{
     UserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
         var token = this.recoverToken(request);
-        if (token != null){
+
+        if (token != null) {
             var email = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByEmail(email);
+            if (email != null && !email.isBlank()) {
+                User user = userRepository.findByEmail(email);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                if (user != null) {
+                    var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
         }
         filterChain.doFilter(request, response);
     }
 
     // traduz o cookie de volta para jwt
-    private String recoverToken(HttpServletRequest httpServletRequest){
-        if (httpServletRequest.getCookies() != null) {
-            for (Cookie cookie : httpServletRequest.getCookies()) {
+    private String recoverToken(HttpServletRequest request) {
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
                 if ("jwt_token".equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }
         }
+
+        var authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.replace("Bearer ", "");
+        }
+
         return null;
     }
 }
