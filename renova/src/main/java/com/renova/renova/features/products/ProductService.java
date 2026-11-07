@@ -1,10 +1,12 @@
 package com.renova.renova.features.products;
 
+import com.renova.renova.features.products.dto.CreateProductRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,14 +18,32 @@ public class ProductService {
     @Autowired
     private ProductImageService productImageService;
 
-    public Product registerProduct(Product product, MultipartFile image) {
-        String imageUrl = productImageService.save(image);
+    public Product registerProduct(CreateProductRequest request, List<MultipartFile> images) {
+        Product product = new Product();
+        product.setProductName(request.productName());
+        product.setDescription(request.description());
+        product.setPrice(request.price().doubleValue());
+        product.setCategory(ProductCategories.valueOf(request.category().toUpperCase()));
+        product.setCondition(ProductConditions.valueOf(request.condition().toUpperCase()));
+        product.setSizeType(request.sizeType());
+        product.setSize(request.size());
+        product.setStatus(ProductStatus.AVAILABLE);
+
+        List<String> savedImageUrls = new ArrayList<>();
+
+        // processa as imagens se existirem
+        if (images != null && !images.isEmpty()) {
+            for (MultipartFile img : images) {
+                savedImageUrls.add(productImageService.save(img));
+            }
+        }
+        product.setImageUrls(savedImageUrls);
 
         try {
-            product.setImageUrl(imageUrl);
             return repository.save(product);
         } catch (RuntimeException exception) {
-            productImageService.delete(imageUrl);
+            // se o banco falhar, apaga todas as imagens que já tinha feito upload
+            savedImageUrls.forEach(url -> productImageService.delete(url));
             throw exception;
         }
     }

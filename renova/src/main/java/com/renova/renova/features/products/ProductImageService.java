@@ -11,9 +11,11 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -130,13 +132,16 @@ public class ProductImageService {
         }
     }
 
-    public String buildImageUrl(Product product) {
-        if (product.getImageUrl() == null) {
-            return null;
+    public List<String> buildImageUrls(Product product) {
+        if (product.getImageUrls() == null || product.getImageUrls().isEmpty()) {
+            return List.of();
         }
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path(product.getImageUrl())
-                .toUriString();
+
+        return product.getImageUrls().stream()
+                .map(url -> ServletUriComponentsBuilder
+                        .fromCurrentContextPath()
+                        .path(url)
+                        .toUriString())
+                .collect(Collectors.toList());
     }
 }
