@@ -11,6 +11,9 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 @Getter
@@ -25,7 +28,6 @@ public class Product {
     @NotBlank(message = "O nome do produto é obrigatório.")
     private String productName;
 
-    @NotBlank(message = "A descrição do produto é obrigatória.")
     private String description;
 
     @JdbcTypeCode(SqlTypes.DECIMAL)
@@ -38,5 +40,19 @@ public class Product {
 
     @Column(name = "image_url", length = 500)
     private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categorie")
+    private ProductCategories categorie;
+
+    @Enumerated(EnumType.STRING)
+    private ProductConditions condition;
+
+    private String sizeType;
+
+    @ElementCollection
+    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "size")
+    private List<String> sizes = new ArrayList<>();
 
 }

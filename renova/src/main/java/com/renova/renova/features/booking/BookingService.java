@@ -15,8 +15,6 @@ public class BookingService {
     @Autowired
     private BookingRepository bookingRepository;
 
-    // garante que tudo salva ou tudo cancela na hora
-    @Transactional
     public boolean finalizeBooking(BookingRequest request) {
         Booking booking = request.booking();
         List<Product> cart = request.basket();

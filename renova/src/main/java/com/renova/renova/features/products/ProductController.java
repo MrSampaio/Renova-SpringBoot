@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/catalog")
+@RequestMapping("/products")
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class ProductController {
 

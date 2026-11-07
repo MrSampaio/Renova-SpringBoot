@@ -16,13 +16,11 @@ public class ProductService {
     @Autowired
     private ProductImageService productImageService;
 
-    @Transactional
     public Product registerProduct(Product product, MultipartFile image) {
         String imageUrl = productImageService.save(image);
 
         try {
             product.setImageUrl(imageUrl);
-
             return repository.save(product);
         } catch (RuntimeException exception) {
             productImageService.delete(imageUrl);
