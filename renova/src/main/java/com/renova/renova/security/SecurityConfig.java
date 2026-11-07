@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-costumer").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/images/products/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/uploads/images/products/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/catalog", "/catalog/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
                         .requestMatchers(HttpMethod.PUT, "/catalog", "/catalog/**").hasRole("EMPLOYEE")
