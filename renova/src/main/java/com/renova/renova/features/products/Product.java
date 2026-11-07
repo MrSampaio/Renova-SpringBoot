@@ -30,7 +30,6 @@ public class Product {
 
     private String description;
 
-    @JdbcTypeCode(SqlTypes.DECIMAL)
     @Positive(message = "Insira um preço válido maior que zero.")
     private double price;
 
@@ -38,21 +37,20 @@ public class Product {
     @NotNull(message = "O status do produto é obrigatório.")
     private ProductStatus status;
 
-    @Column(name = "image_url", length = 500)
-    private String imageUrl;
+    @Enumerated(EnumType.STRING)
+    private ProductCategories category;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "categorie")
-    private ProductCategories categorie;
-
-    @Enumerated(EnumType.STRING)
+    @Column(name = "product_condition")
     private ProductConditions condition;
 
     private String sizeType;
 
-    @ElementCollection
-    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "size")
-    private List<String> sizes = new ArrayList<>();
+    @NotBlank(message = "O tamanho do produto é obrigatório.")
+    private String size;
 
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
 }
