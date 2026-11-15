@@ -1,9 +1,13 @@
 package com.renova.renova.features.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -33,6 +38,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
 
+//    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
     @Size(min = 11, max = 11, message = "O telefone deve ter exatamente 11 dígitos.")
