@@ -120,4 +120,17 @@ public class ProductService {
             throw exception;
         }
     }
+
+    public void deleteProduct(String id) {
+        Product product = findProductById(id);
+
+        List<String> imagesToDelete = product.getImageUrls() != null
+                ? new ArrayList<>(product.getImageUrls())
+                : List.of();
+
+        repository.delete(product);
+        repository.flush();
+
+        imagesToDelete.forEach(url -> productImageService.delete(url));
+    }
 }
