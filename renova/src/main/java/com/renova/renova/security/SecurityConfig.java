@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-costumer").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/images/products/**").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/images/products/**", "/uploads/images/products/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products", "/products/**").permitAll()
