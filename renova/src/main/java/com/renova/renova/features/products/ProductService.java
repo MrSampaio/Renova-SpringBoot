@@ -65,4 +65,59 @@ public class ProductService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto com o ID " + id + "não encontrado."));
     }
+
+    public Product updateProduct(
+            String id,
+            CreateProductRequest request,
+            List<String> existingImages,
+            List<MultipartFile> newImages
+    ) {
+        Product product = findProductById(id);
+
+        product.setProductName(request.productName());
+        product.setDescription(request.description());
+        product.setPrice(request.price().doubleValue());
+        product.setCategory(ProductCategories.valueOf(request.category().toUpperCase()));
+        product.setCondition(ProductConditions.valueOf(request.condition().toUpperCase()));
+        product.setSizeType(request.sizeType());
+        product.setSize(request.size());
+
+        List<String> keptImages = existingImages != null ? new ArrayList<>(existingImages) : new ArrayList<>();
+        List<String> newlySavedUrls = new ArrayList<>();
+
+        if (newImages != null && !newImages.isEmpty()) {
+            for (MultipartFile img : newImages) {
+                if (!img.isEmpty()) {
+                    newlySavedUrls.add(productImageService.save(img));
+                }
+            }
+        }
+
+        List<String> finalImageUrls = new ArrayList<>(keptImages);
+        finalImageUrls.addAll(newlySavedUrls);
+
+        if (finalImageUrls.isEmpty()) {
+            newlySavedUrls.forEach(url -> productImageService.delete(url));
+            throw new IllegalArgumentException("The product must have at least one image.");
+        }
+
+        // quais imagens velhas foram tiradas pelo usuário
+        List<String> oldImages = product.getImageUrls() != null ? new ArrayList<>(product.getImageUrls()) : List.of();
+        List<String> imagesToDelete = oldImages.stream()
+                .filter(oldUrl -> !keptImages.contains(oldUrl))
+                .toList();
+
+        product.setImageUrls(finalImageUrls);
+
+        try {
+            Product updatedProduct = repository.save(product);
+            // só apaga depois que o banco confirmar
+            imagesToDelete.forEach(url -> productImageService.delete(url));
+            return updatedProduct;
+        } catch (RuntimeException exception) {
+            // rollback dos arquivos novos se o banco falhar
+            newlySavedUrls.forEach(url -> productImageService.delete(url));
+            throw exception;
+        }
+    }
 }

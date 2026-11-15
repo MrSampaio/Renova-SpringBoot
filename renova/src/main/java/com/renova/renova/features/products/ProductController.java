@@ -41,4 +41,16 @@ public class ProductController {
     public ResponseEntity<Product> findProductById(@PathVariable String id) {
         return ResponseEntity.ok(productService.findProductById(id));
     }
+
+    // edição de produtos
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Product> updateProduct(
+            @PathVariable String id,
+            @Valid @ModelAttribute CreateProductRequest request,
+            @RequestParam(value = "existingImages", required = false) List<String> existingImages,
+            @RequestParam(value = "images", required = false) List<MultipartFile> images
+    ) {
+        Product updatedProduct = productService.updateProduct(id, request, existingImages, images);
+        return ResponseEntity.ok(updatedProduct);
+    }
 }
