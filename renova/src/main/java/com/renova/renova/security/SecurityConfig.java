@@ -27,6 +27,8 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+
+    // configura niveis de permissao e acesso
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -35,9 +37,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-costumer").permitAll()
                         .requestMatchers(HttpMethod.GET, "/images/products/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/images/products/**", "/uploads/images/products/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products", "/products/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/products", "/products/**").hasRole("EMPLOYEE")
                         .requestMatchers(HttpMethod.PUT, "/products", "/products/**").hasRole("EMPLOYEE")
@@ -49,6 +53,7 @@ public class SecurityConfig {
                 .build();
     }
 
+    // configura quais metodos em quais rotas tao librados
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
