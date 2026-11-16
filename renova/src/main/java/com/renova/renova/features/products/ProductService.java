@@ -125,6 +125,7 @@ public class ProductService {
         }
     }
 
+    @Transactional
     public void deleteProduct(String id) {
         Product product = findProductById(id);
         cartRepository.removeProductFromAllCarts(id);
