@@ -1,5 +1,6 @@
 package com.renova.renova.features.products;
 
+import com.renova.renova.features.cart.CartRepository;
 import com.renova.renova.features.products.dto.CreateProductRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository repository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     @Autowired
     private ProductImageService productImageService;
@@ -123,6 +127,7 @@ public class ProductService {
 
     public void deleteProduct(String id) {
         Product product = findProductById(id);
+        cartRepository.removeProductFromAllCarts(id);
 
         List<String> imagesToDelete = product.getImageUrls() != null
                 ? new ArrayList<>(product.getImageUrls())
