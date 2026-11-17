@@ -11,6 +11,9 @@ import java.util.List;
 public record OrderResponse(
         String orderId,
         Long orderNumber,
+        String customerName,
+        String customerEmail,
+        String customerPhone,
         List<Product> items,
         double totalPrice,
         PaymentMethod paymentMethod,
@@ -22,6 +25,9 @@ public record OrderResponse(
         return new OrderResponse(
                 order.getOrderId(),
                 order.getOrderNumber(),
+                order.getUser().getName(),
+                order.getUser().getEmail(),
+                order.getUser().getPhone(),
                 order.getProducts() != null ? order.getProducts() : List.of(),
                 order.getTotalPrice(),
                 order.getPaymentMethod(),

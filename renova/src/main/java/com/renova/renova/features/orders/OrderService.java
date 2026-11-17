@@ -91,4 +91,55 @@ public class OrderService {
                 .map(OrderResponse::from)
                 .toList();
     }
+
+    public List<OrderResponse> listAllOrders() {
+        return orderRepository.findAllByOrderByCreatedAtDesc()
+                .stream()
+                .map(OrderResponse::from)
+                .toList();
+    }
+
+    @Transactional
+    public OrderResponse completeOrder(String orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado."));
+
+        if (order.getStatus() != OrderStatus.RESERVED) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Apenas pedidos aguardando retirada podem ser concluídos."
+            );
+        }
+
+        order.setStatus(OrderStatus.COMPLETED);
+
+        for (Product product : order.getProducts()) {
+            product.setStatus(ProductStatus.SOLD);
+        }
+        productRepository.saveAll(order.getProducts());
+
+        return OrderResponse.from(orderRepository.save(order));
+    }
+
+    @Transactional
+    public OrderResponse cancelOrder(String orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado."));
+
+        if (order.getStatus() != OrderStatus.RESERVED) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Apenas pedidos aguardando retirada podem ser cancelados."
+            );
+        }
+
+        order.setStatus(OrderStatus.CANCELLED);
+
+        for (Product product : order.getProducts()) {
+            product.setStatus(ProductStatus.AVAILABLE);
+        }
+        productRepository.saveAll(order.getProducts());
+
+        return OrderResponse.from(orderRepository.save(order));
+    }
 }
