@@ -49,6 +49,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/products", "/products/**").hasRole("EMPLOYEE")
                         .requestMatchers(HttpMethod.DELETE, "/products", "/products/**").hasRole("EMPLOYEE")
                         .requestMatchers("/cart", "/cart/**").hasRole("CUSTOMER")
+                        .requestMatchers(HttpMethod.POST, "/orders").hasRole("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/orders/my").hasRole("CUSTOMER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
