@@ -39,4 +39,19 @@ public class OrderController {
         }
         return ResponseEntity.ok(orderService.listMyOrders(user));
     }
+
+    @GetMapping
+    public ResponseEntity<List<OrderResponse>> getAllOrders() {
+        return ResponseEntity.ok(orderService.listAllOrders());
+    }
+
+    @PatchMapping("/{orderId}/complete")
+    public ResponseEntity<OrderResponse> completeOrder(@PathVariable String orderId) {
+        return ResponseEntity.ok(orderService.completeOrder(orderId));
+    }
+
+    @PatchMapping("/{orderId}/cancel")
+    public ResponseEntity<OrderResponse> cancelOrder(@PathVariable String orderId) {
+        return ResponseEntity.ok(orderService.cancelOrder(orderId));
+    }
 }

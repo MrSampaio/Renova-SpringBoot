@@ -51,6 +51,8 @@ public class SecurityConfig {
                         .requestMatchers("/cart", "/cart/**").hasRole("CUSTOMER")
                         .requestMatchers(HttpMethod.POST, "/orders").hasRole("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/orders/my").hasRole("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/orders").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.PATCH, "/orders/**").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

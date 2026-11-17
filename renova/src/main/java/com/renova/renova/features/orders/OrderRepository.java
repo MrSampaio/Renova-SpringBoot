@@ -10,6 +10,8 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 
     List<Order> findByUserOrderByCreatedAtDesc(User user);
 
+    List<Order> findAllByOrderByCreatedAtDesc();
+
     @Query("SELECT COALESCE(MAX(o.orderNumber), 1000) FROM Order o")
     Long findMaxOrderNumber();
 }
